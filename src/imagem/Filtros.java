@@ -415,10 +415,7 @@ public class Filtros {
 
 				int r = (int) ((rgb & 0x00FF0000) >>> 16); // R
 				int g = (int) ((rgb & 0x0000FF00) >>> 8); // G
-				int b = (int) (rgb & 0x000000FF); // B
-
-				// 0, 17, 34, 51, 68, 85, 102, 119, 136, 153, 170, 187, 204,
-				// 221, 238, 255
+				int b = (int) (rgb & 0x000000FF); // B		
 
 				if ((r > 0) && (r <= 17)) {
 					r = 0;
