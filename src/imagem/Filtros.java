@@ -97,9 +97,9 @@ public class Filtros {
 				int azul = ((rgb19 * c1) + (rgb20 * c2) + (rgb21 * c3) + (rgb22 * c4) + (rgb23 * c5) + (rgb24 * c6)
 						+ (rgb25 * c7) + (rgb26 * c8) + (rgb27 * c9)) / dvM;
 
-				matrizR[i - 1][j - 1] = vermelho;
-				matrizG[i - 1][j - 1] = verde;
-				matrizB[i - 1][j - 1] = azul;
+				matrizR[i][j] = vermelho;
+				matrizG[i][j] = verde;
+				matrizB[i][j] = azul;
 			}
 		}
 		if (normalizacao) {
@@ -126,9 +126,9 @@ public class Filtros {
 
 		for (int i = 1; i < xMax; i++) {
 			for (int j = 1; j < yMax; j++) {
-				gR = ((matrizR[i - 1][j - 1] - (menorR)) * 255) / (maiorR - menorR);
-				gG = ((matrizG[i - 1][j - 1] - (menorG)) * 255) / (maiorG - menorG);
-				gB = ((matrizB[i - 1][j - 1] - (menorB)) * 255) / (maiorB - menorB);
+				gR = ((matrizR[i][j] - (menorR)) * 255) / (maiorR - menorR);
+				gG = ((matrizG[i][j] - (menorG)) * 255) / (maiorG - menorG);
+				gB = ((matrizB[i][j] - (menorB)) * 255) / (maiorB - menorB);
 
 				Color cor = new Color(gR, gG, gB);
 				imagem.setRGB(i, j, cor.getRGB());
@@ -141,7 +141,7 @@ public class Filtros {
 		int vMaior = 0;
 
 		for (int i = 0; i < maior.length; i++) {
-			for (int j = 0; j < maior.length; j++) {
+			for (int j = 0; j < maior[0].length; j++) {
 				if (maior[i][j] > vMaior) {
 					vMaior = maior[i][j];
 				}
@@ -154,7 +154,7 @@ public class Filtros {
 	public static int menor(int[][] menor) {
 		int vMenor = 0;
 		for (int i = 0; i < menor.length; i++) {
-			for (int j = 0; j < menor.length; j++) {
+			for (int j = 0; j < menor[0].length; j++) {
 				if (menor[i][j] < vMenor) {
 					vMenor = menor[i][j];
 				}
@@ -415,7 +415,10 @@ public class Filtros {
 
 				int r = (int) ((rgb & 0x00FF0000) >>> 16); // R
 				int g = (int) ((rgb & 0x0000FF00) >>> 8); // G
-				int b = (int) (rgb & 0x000000FF); // B		
+				int b = (int) (rgb & 0x000000FF); // B
+
+				// 0, 17, 34, 51, 68, 85, 102, 119, 136, 153, 170, 187, 204,
+				// 221, 238, 255
 
 				if ((r > 0) && (r <= 17)) {
 					r = 0;

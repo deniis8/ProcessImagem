@@ -9,7 +9,6 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
  
@@ -18,7 +17,6 @@ public class Janela extends JFrame {
 	public static BufferedImage imagemAuxiliar;
 	private JFileChooser JCAbrir = new JFileChooser();
 	private JFileChooser JCSalvar = new JFileChooser();
-	private String diretorio;
 	private int x = 0;
 	private int y = 0;
 
@@ -32,7 +30,6 @@ public class Janela extends JFrame {
 	private KeyListener a;
 	private KeyListener s;
 
-	private static String caminho;
 	private BufferedImage imagemOriginal;
 
 	private static BufferedImage imagemDF;
@@ -700,21 +697,7 @@ public class Janela extends JFrame {
 		a = new KeyAdapter() {
 			public void keyPressed(KeyEvent a) {
 				if (a.getKeyCode() == KeyEvent.VK_A) {
-					int res = JCAbrir.showOpenDialog(JCAbrir);
-					if (res == JFileChooser.APPROVE_OPTION) {
-						caminho = JCAbrir.getSelectedFile().getAbsolutePath();
-						try {
-							imagemOriginal = ImageIO.read(new File(caminho));
-							imagemDF = ImageIO.read(new File(caminho));
-							repaint();
-
-						} catch (IOException exc) {
-							JOptionPane.showMessageDialog(
-									null,
-									"Erro ao carregar a imagem: "
-											+ exc.getMessage());
-						}
-					}
+					abrir();
 				}
 			}
 		};
@@ -723,23 +706,7 @@ public class Janela extends JFrame {
 		s = new KeyAdapter() {
 			public void keyPressed(KeyEvent s) {
 				if (s.getKeyCode() == KeyEvent.VK_S) {
-					String caminho = "";
-					int retorno = JCSalvar.showSaveDialog(null);
-					if (retorno == JFileChooser.APPROVE_OPTION) {
-						caminho = JCSalvar.getSelectedFile().getAbsolutePath();
-					}
-					if (!caminho.equals("")) {
-						try {
-							ImageIO.write(imagemDF, "jpg", new File(caminho
-									+ ".jpg"));
-							JOptionPane.showMessageDialog(null,
-									"Imagem salva com sucesso!");
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}
-					} else {
-
-					}
+					salvar();
 				}
 			}
 		};
@@ -751,7 +718,7 @@ public class Janela extends JFrame {
 		int res = JCAbrir.showOpenDialog(JCAbrir);
 		if (res == JFileChooser.APPROVE_OPTION) {
 			try {
-				diretorio = JCAbrir.getSelectedFile().getAbsolutePath();
+				String diretorio = JCAbrir.getSelectedFile().getAbsolutePath();
 				imagemOriginal = ImageIO.read(new File(diretorio));
 				imagemDF = ImageIO.read(new File(diretorio));
 				imagemAuxiliar = ImageIO.read(new File(diretorio));
@@ -800,21 +767,23 @@ public class Janela extends JFrame {
 	}
 
 	public void salvar() {
-		String caminho = "";
 		int retorno = JCSalvar.showSaveDialog(null);
-
+		String caminho ="";
 		if (retorno == JFileChooser.APPROVE_OPTION) {
 			caminho = JCSalvar.getSelectedFile().getAbsolutePath();
 		}
-		if (!caminho.equals("")) {
-			try {
-				ImageIO.write(imagemAuxiliar, "jpg", new File(caminho + ".jpg"));
-				JOptionPane
-						.showMessageDialog(null, "Imagem salva com sucesso!");
-			} catch (IOException e1) {
-				e1.printStackTrace();
+		if(caminho != null) {
+			if (!caminho.equals("")) {
+				try {
+					if(imagemAuxiliar != null) {
+						ImageIO.write(imagemAuxiliar, "jpg", new File(caminho + ".jpg"));
+						JOptionPane.showMessageDialog(null, "Imagem salva com sucesso!");
+					}				
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
-		}
+		}		
 	}
 
 	public void reset(BufferedImage imagem) {
