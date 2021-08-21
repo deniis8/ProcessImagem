@@ -172,31 +172,31 @@ public class Filtros {
 			for (int j = 1; j < yMax; j++) {
 
 				if ((filtro == "PH") || (filtro == "PV") || (filtro == "SH") || (filtro == "SV")) {
-					matrizR[i - 1][j - 1] = matrizR[i - 1][j - 1] + 127;
-					matrizG[i - 1][j - 1] = matrizG[i - 1][j - 1] + 127;
-					matrizB[i - 1][j - 1] = matrizB[i - 1][j - 1] + 127;
+					matrizR[i][j] = matrizR[i][j] + 127;
+					matrizG[i][j] = matrizG[i][j] + 127;
+					matrizB[i][j] = matrizB[i][j] + 127;
 				}
 
-				if (matrizR[i - 1][j - 1] >= 255) {
-					matrizR[i - 1][j - 1] = 255;
+				if (matrizR[i][j] >= 255) {
+					matrizR[i][j] = 255;
 				}
-				if (matrizR[i - 1][j - 1] <= 0) {
-					matrizR[i - 1][j - 1] = 0;
+				if (matrizR[i][j] <= 0) {
+					matrizR[i][j] = 0;
 				}
-				if (matrizG[i - 1][j - 1] >= 255) {
-					matrizG[i - 1][j - 1] = 255;
+				if (matrizG[i][j] >= 255) {
+					matrizG[i][j] = 255;
 				}
-				if (matrizG[i - 1][j - 1] <= 0) {
-					matrizG[i - 1][j - 1] = 0;
+				if (matrizG[i][j] <= 0) {
+					matrizG[i][j] = 0;
 				}
-				if (matrizB[i - 1][j - 1] >= 255) {
-					matrizB[i - 1][j - 1] = 255;
+				if (matrizB[i][j] >= 255) {
+					matrizB[i][j] = 255;
 				}
-				if (matrizB[i - 1][j - 1] <= 0) {
-					matrizB[i - 1][j - 1] = 0;
+				if (matrizB[i][j] <= 0) {
+					matrizB[i][j] = 0;
 				}
 
-				Color cor = new Color(matrizR[i - 1][j - 1], matrizG[i - 1][j - 1], matrizB[i - 1][j - 1]);
+				Color cor = new Color(matrizR[i][j], matrizG[i][j], matrizB[i][j]);
 				imagem.setRGB(i, j, cor.getRGB());
 			}
 		}
